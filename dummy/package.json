@@ -1,0 +1,9 @@
+{
+  "name": "tmining-dummy-test",
+  "version": "0.0.1",
+  "dependencies": {
+    "async": "^2.4.1",
+    "eris-contracts": "^0.15.6",
+    "promise": "7.1.1"
+  }
+}

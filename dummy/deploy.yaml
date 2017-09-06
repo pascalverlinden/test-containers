@@ -1,0 +1,15 @@
+jobs:
+
+- name: deployContainerList
+  job:
+    deploy:
+      contract: container_list.sol
+      instance: ContainerList
+      wait: true
+
+- name: deployContainer
+  job:
+    deploy:
+      contract: container.sol
+      instance: Container
+      wait: true

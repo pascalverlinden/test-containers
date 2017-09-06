@@ -1,0 +1,62 @@
+jobs:
+
+- name: deployContainerList
+  job:
+    deploy:
+      contract: container_list.sol
+      instance: ContainerList
+      wait: true
+
+
+- name: deployTestContainer
+  job:
+    deploy:
+      contract: test_container.sol
+      instance: TestContainer
+      wait: true
+
+- name: init
+  job:
+    call:
+      destination: $deployTestContainer
+      function: init
+      abi: TestContainer
+      data:
+        - $deployContainerList
+      wait: true
+
+
+- name: success
+  job:
+    set:
+      val: "success"
+
+- name: testAdd
+  job:
+    call:
+      destination: $deployTestContainer
+      function: testAdd
+      abi: TestContainer
+      wait: true
+
+- name: assert-testAdd
+  job:
+    assert:
+      key: $testAdd
+      relation: eq
+      val: $success
+
+- name: testGet
+  job:
+    call:
+      destination: $deployTestContainer
+      function: testGet
+      abi: TestContainer
+      wait: true
+
+- name: assert-testGet
+  job:
+    assert:
+      key: $testGet
+      relation: eq
+      val: $success
